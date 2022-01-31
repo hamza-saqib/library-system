@@ -7,6 +7,9 @@ b. Manage the books and add them in their specific racks. (book title, author, p
 year)
 c. Only 10 books can be added in a rack. An alert should prompt if admin is trying to
 add more books.
+- url: http://127.0.0.1:8000/admin
+- email: admin@gmail.com
+-pass: admin@123
 ## Client Panel:
 1. Any registered user can login and perform following actions.
 o Racks
@@ -16,7 +19,7 @@ book details
 o Search the books with title, author name or published year.
 o The result should show the book details along with the rack name
 
-## requirement to run project after cloning
+# requirement to run project after cloning
 run following commands to add missing files.
 - composer install
 - composer require laravel/ui
@@ -42,7 +45,7 @@ run following commands to add missing files.
 
 <br>to run projects run following commands
 - php artisan serve
-<br>Adminpanel url is (baseurl/admin)
+<br>Adminpanel url: http://127.0.0.1:8000/admin
 defaul user email: admin@gmail.com
 defaul user pass: admin@123
 
