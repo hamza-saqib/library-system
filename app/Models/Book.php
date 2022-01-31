@@ -21,4 +21,6 @@ class Book extends Model
         return $this->hasOne(Rack::class, 'id', 'rack_id');
     }
 
+    
+
 }

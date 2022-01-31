@@ -1,12 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Clientpanel;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Rack;
 
 class RackController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['validateClient']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +56,8 @@ class RackController extends Controller
      */
     public function show($id)
     {
-        //
+        $rack = Rack::find($id);
+        return view('rack_show', compact('rack'));
     }
 
     /**

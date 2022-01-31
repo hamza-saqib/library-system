@@ -19,15 +19,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('rack/show/{id}', [App\Http\Controllers\RackController::class, 'show'])->name('rack.show');
+    Route::get('book/index', [App\Http\Controllers\BookController::class, 'index'])->name('book.index');
+    Route::any('book/search', [App\Http\Controllers\BookController::class, 'search'])->name('book.search');
 
 //adminpanel routes//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/admin/login', [App\Http\Controllers\Adminpanel\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [App\Http\Controllers\Adminpanel\Auth\LoginController::class, 'login'])->name('admin.login');
 
-Route::prefix('admin')->name('admin.')->middleware('authAdmin')->group(function(){
+Route::prefix('admin')->name('admin.')->middleware(['authAdmin','validateAdmin'])->group(function(){
     Route::post('/logout', [App\Http\Controllers\Adminpanel\Auth\LoginController::class, 'logout'])->name('logout');
     Route::get('/', [App\Http\Controllers\Adminpanel\DashboardrController ::class, 'index'])->name('home');
     //Rack

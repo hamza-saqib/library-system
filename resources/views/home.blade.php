@@ -3,21 +3,32 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
+    <h1 class="display-3">List of Racks</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Rack Name</th>
+                <th scope="col">Total Books</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($racks as $rack)
+                <tr>
+                <td>{{$rack->name}}</td>
+                <td>{{count($rack->books)}}</td>
+                <td><a href="{{ route('rack.show', $rack->id) }}" class="btn btn-outline-primary">Open</a></td>
+                </tr>
+                @empty
+                <tr>
+                <td>No Racks Found !</td>
+                <tr>
+                @endforelse
+                
+            </tbody>
+        </table>
+        
     </div>
+    {{ $racks->links() }}
 </div>
 @endsection
