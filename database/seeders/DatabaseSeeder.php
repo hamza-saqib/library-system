@@ -1,7 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-
+use App\Models\User;
+use App\Models\Rack;
+use App\Models\Book;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::create(['name'=>'Hamza Saqib', 'email'=>'admin@gmail.com', 'password'=>Hash::make('admin@123'), 'role'=>'admin']);
+        //\App\Models\User::factory(10)->create();
+        \App\Models\Rack::factory(20)->create();
+        \App\Models\Book::factory(50)->create();
     }
 }

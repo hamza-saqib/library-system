@@ -20,3 +20,39 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//adminpanel routes//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Route::get('/admin/login', [App\Http\Controllers\Adminpanel\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [App\Http\Controllers\Adminpanel\Auth\LoginController::class, 'login'])->name('admin.login');
+
+Route::prefix('admin')->name('admin.')->middleware('authAdmin')->group(function(){
+    Route::post('/logout', [App\Http\Controllers\Adminpanel\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::get('/', [App\Http\Controllers\Adminpanel\DashboardrController ::class, 'index'])->name('home');
+    //Rack
+    Route::prefix('rack')->name('rack.')->group(function(){
+        Route::get('/index', [App\Http\Controllers\Adminpanel\RackController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Adminpanel\RackController::class, 'create'])->name('create');
+        Route::post('/store', [App\Http\Controllers\Adminpanel\RackController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [App\Http\Controllers\Adminpanel\RackController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [App\Http\Controllers\Adminpanel\RackController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [App\Http\Controllers\Adminpanel\RackController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [App\Http\Controllers\Adminpanel\RackController::class, 'destroy'])->name('destroy');
+
+    });
+
+    //Book
+    Route::prefix('book')->name('book.')->group(function(){
+        Route::get('/index', [App\Http\Controllers\Adminpanel\BookController::class, 'index'])->name('index');
+        Route::get('/create', [App\Http\Controllers\Adminpanel\BookController::class, 'create'])->name('create');
+        Route::post('/store', [App\Http\Controllers\Adminpanel\BookController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [App\Http\Controllers\Adminpanel\BookController::class, 'show'])->name('show');
+        Route::get('/edit/{id}', [App\Http\Controllers\Adminpanel\BookController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [App\Http\Controllers\Adminpanel\BookController::class, 'update'])->name('update');
+        Route::get('/destroy/{id}', [App\Http\Controllers\Adminpanel\BookController::class, 'destroy'])->name('destroy');
+
+    });
+
+});
+
