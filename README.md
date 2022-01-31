@@ -25,7 +25,6 @@ run following commands to add missing files.
 - composer require laravel/ui
 - php artisan ui bootstrap --auth
 - mv .env.example .env
-- composer dump-autoload
 - php artisan key:generate
 
 <br>make sure you have Database created in xamp/server with name of 'library-system' and configured in .env file. and than continue commands.
@@ -38,7 +37,8 @@ run following commands to add missing files.
 - php artisan db:seed (will create 10 Racks & 20 Books through factory/seeder)
 
 
-<br>at the end run following commands
+<br>at the end to run safely run following commands 
+- composer dump-autoload
 - php artisan config:cache
 - php artisan view:cache
 - php artisan route:cache
@@ -51,3 +51,11 @@ defaul user pass: admin@123
 
 ## packages installed
 - laravel basic auth
+## About Versions
+- "php": "^7.3|^8.0",
+- "fruitcake/laravel-cors": "^2.0",
+- "guzzlehttp/guzzle": "^7.0.1",
+- "laravel/framework": "^8.75",
+- "laravel/sanctum": "^2.11",
+- "laravel/tinker": "^2.5",
+- "laravel/ui": "^3.4"
