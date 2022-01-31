@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         User::create(['name'=>'Hamza Saqib', 'email'=>'admin@gmail.com', 'password'=>Hash::make('admin@123'), 'role'=>'admin']);
         //\App\Models\User::factory(10)->create();
-        \App\Models\Rack::factory(20)->create();
-        \App\Models\Book::factory(50)->create();
+        \App\Models\Rack::factory(10)->create();
+        \App\Models\Book::factory(20)->create();
     }
 }
