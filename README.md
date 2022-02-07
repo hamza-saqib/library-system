@@ -49,9 +49,22 @@ run following commands to add missing files.
 defaul user email: admin@gmail.com
 defaul user pass: admin@123
 
+## APIs
+<br>to update collection for postman api run following command
+- composer require andreaselia/laravel-api-to-postman
+- php artisan vendor:publish --provider="AndreasElia\PostmanGenerator\PostmanGeneratorServiceProvider" --tag="postman-config"
+- php artisan export:postman
+<br> postman collection  file will be exported in storage\app\postman from there you can import the file in postman collection
+<br> here is the link of my postman collections link:<br>
+
+- https://www.postman.com/teamhamza/workspace/zam-studio-test/collection/15291709-ece71682-fa67-4137-b27e-63efaee88aa3
+- https://www.postman.com/teamhamza/workspace/zam-studio-test/collection/15291709-a8f05e4c-53c8-486c-a036-ffd9b3c135f4
+
+public workspace id : b29e494f-35fe-4a43-8946-fb9636713a9c
+
 ## packages installed
 - laravel basic auth
-- Laravel API to Postman
+- Laravel API to Postman (to update api on postman)
 ## About Versions
 - "php": "^7.3|^8.0",
 - "fruitcake/laravel-cors": "^2.0",
