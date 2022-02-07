@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Adminpanel;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
-use App\Models\Rack;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -16,22 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-
-        $books = Book::orderby('id', 'desc')->get();
-        return view('adminpanel.pages.book_list', compact('books'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $racks = Rack::all();
-
-        return view('adminpanel.pages.book_create', compact('racks'));
-
+        return BookResource::collection(Book::paginate(25));
     }
 
     /**
@@ -51,18 +36,18 @@ class BookController extends Controller
 
         $total_book_added =  Book::where('rack_id', $request->rack_id)->count('id');
         if($total_book_added <= 10){
-            if(Book::create(['title'=>$request->title, 'publish_year'=>$request->publish_year,
-            'author'=>$request->author, 'rack_id'=>$request->rack_id])){
-                return redirect()->back()->with('success', 'Created Successfuly !');
-            }
-            else{
-                return redirect()->back()->with('error', 'Error while Creating!');
-            }
+            $book = Book::create([
+                'title' => $request->title,
+                'author' => $request->author,
+                'publish_year' => $request->publish_year,
+                'rack_id' => $request->rack_id,
+            ]);
+
+            return new BookResource($book);
         }
         else{
-            return redirect()->back()->with('error', 'Rack is Full, Rack Limit is 10');
+            return response()->json('error', 'Rack is Full, Rack Limit is 10');
         }
-
     }
 
     /**
@@ -73,22 +58,12 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-        $racks = Rack::all();
-
         $book = Book::find($id);
-        return view('adminpanel.pages.book_edit', compact('book', 'racks'));
+        if($book){
+            return new BookResource($book);
+        }
+        return response()->json('error','resource not found.');
+
     }
 
     /**
@@ -106,17 +81,15 @@ class BookController extends Controller
             'author' => 'required|max:25',
             'rack_id' => 'required|exists:App\Models\Rack,id',
         ]);
+        
         $book = Book::find($id);
-
         if($book){
-            $book->title = $request->title;
-            $book->publish_year = $request->publish_year;
-            $book->author = $request->author;
-            $book->rack_id = $request->rack_id;
-            $book->save();
-            return redirect()->back()->with('success', 'Update Successfuly !');
+            $book->update($request->only(['title', 'author', 'publish_year', 'rack_id']));
+            return new BookResource($book);
         }
-        return redirect()->back()->with('error', 'Error while updating !');
+
+        return response()->json('error','resource not found.');
+
     }
 
     /**
@@ -130,8 +103,8 @@ class BookController extends Controller
         $book = Book::find($id);
         if($book){
             $book->delete();
-            return response()->json(['success'=>'Deleted successfully !']);
+            return response()->json('success','resource deleted successfully.');
         }
-        return response()->json(['error'=>'Book not found !']);
+        return response()->json('error','resource not found.');
     }
 }
