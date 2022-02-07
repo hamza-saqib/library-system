@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
+use App\Models\Rack;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -81,7 +82,7 @@ class BookController extends Controller
             'author' => 'required|max:25',
             'rack_id' => 'required|exists:App\Models\Rack,id',
         ]);
-        
+
         $book = Book::find($id);
         if($book){
             $book->update($request->only(['title', 'author', 'publish_year', 'rack_id']));

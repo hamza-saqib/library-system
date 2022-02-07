@@ -51,6 +51,7 @@ defaul user pass: admin@123
 
 ## packages installed
 - laravel basic auth
+- Laravel API to Postman
 ## About Versions
 - "php": "^7.3|^8.0",
 - "fruitcake/laravel-cors": "^2.0",
